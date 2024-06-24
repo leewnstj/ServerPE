@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wfum2wRlkfQ=",
+  "success": true,
+  "projectFilePath": "D:\\Github\\ServerSuhang\\GameServer\\GameServer\\GameServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512"
+  ],
+  "logs": []
+}

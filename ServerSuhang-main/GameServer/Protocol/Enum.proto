@@ -1,0 +1,14 @@
+// 공통 영역
+syntax = "proto3";	// proto3 문법 사용
+
+package Protocol; 
+option csharp_namespace = "Google.Protobuf.Protocol"; // 네임스페이스 같은 것
+// ***********
+
+enum CreatureState {
+	CREATURE_STATE_IDLE = 0;
+	CREATURE_STATE_MOVING = 1;
+	CREATURE_STATE_SKILL = 2;
+	CREATURE_STATE_DEAD = 3;
+}
+

@@ -1,0 +1,110 @@
+syntax = "proto3";	// proto3 문법 사용
+
+package Protocol; 
+option csharp_namespace = "Google.Protobuf.Protocol"; // 네임스페이스 같은 것
+
+//import public "Enum.proto";
+//import public "Struct.proto";
+
+enum MsgId {
+	S_ENTER = 0;
+	S_LEAVE = 1;
+	S_SPAWN = 2;	// 다른 플레이어 입장 안내
+	S_DESPAWN = 3;  // 다른 플레이어 퇴장 안내
+	C_MOVE = 4;		// 플레이어 -> 서버 움직임 알림
+	S_MOVE = 5;		// 서버 -> 플레이어 움직임 알림
+	C_SKILL = 6;
+	S_SKILL = 7;
+	S_CHANGE_HP = 8;
+	C_ITEMGET = 9;
+	S_ITEMGET = 10;
+}
+
+enum CreatureState
+{
+    Idle = 0;
+    Moving = 1;
+    Skill = 2;
+    Dead = 3;
+}
+
+enum MoveDir
+{
+    Up = 0;
+    Down = 1;
+    Left = 2;
+    Right = 3;
+}
+
+enum GameObjectType {
+  NONE = 0;
+  PLAYER = 1;
+  MONSTER = 2;
+  BOMB = 3;
+  ITEM = 4;
+}
+
+message S_Enter {
+	ObjectInfo player =1;
+}
+message S_Leave {  
+}
+message S_Spawn {
+	repeated ObjectInfo objects = 1;
+}
+message S_Despawn {
+	repeated int32 objectIds = 1;
+}
+message C_Move {
+	PositionInfo posInfo = 1;
+}
+message S_Move {
+	int32 objectId = 1;
+	PositionInfo posInfo = 2;
+}
+message ObjectInfo {	
+	int32 objectId = 1;
+	string name = 2;
+	PositionInfo posInfo = 3;
+	StatInfo statInfo = 4;	// 스탯속성추가
+}
+message StatInfo {	// 스탯정보
+	int32 level = 1;
+	int32 hp = 2;
+	int32 maxHp = 3; 
+	int32 atk = 4;
+	float speed = 5;
+}
+message PositionInfo{
+	CreatureState state = 1;
+	MoveDir moveDir = 2;
+	int32 posX = 3;
+	int32 posY = 4;
+	int32 posZ = 5;
+}
+message C_Skill {
+	SkillInfo info = 1;	// 내가 쓴 스킬어떤건지
+}
+message S_Skill {
+	int32 objectId = 1;	// 누가 쓴건지
+	SkillInfo info = 2;	// 어떤 스킬인지
+}
+message SkillInfo {		// 스킬번호
+	int32 skillId = 1;
+}
+message S_ChangeHp {	// HP변화 패킷
+	int32 objectId = 1;
+	int32 hp = 2;
+}
+message ItemInfo {		// 스킬번호
+	int32 ItemId = 1;
+	string name = 2;
+	PositionInfo posInfo = 3;
+}
+message C_ItemGet {
+	ItemInfo iteminfo = 1;		// 아이템의 오브젝트 아이디
+	int32 PlayerObjectId =2;
+}
+message S_ItemGet {
+	ItemInfo iteminfo = 1;		// 아이템의 오브젝트 아이디
+}
